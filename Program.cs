@@ -7,10 +7,14 @@ void GuessingGame()
     int secretNumber = 42;
 
     Console.WriteLine("Try to guess the secret number!");
+    Console.Write($"Enter your guess> ");
 
     for (int i = 0; i < 4; i++)
     {
-        Console.Write($"Enter your guess: ");
+        if (i > 0)
+        {
+            Console.Write($"Enter your guess ({i + 1})> ");
+        }
         int guess = Int32.Parse(Console.ReadLine().Trim());
 
         if (guess == secretNumber)
