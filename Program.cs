@@ -4,17 +4,13 @@ GuessingGame();
 
 void GuessingGame()
 {
-    int secretNumber = 42;
+    int secretNumber = new Random().Next(1, 101);
 
     Console.WriteLine("Try to guess the secret number!");
-    Console.Write($"Enter your guess> ");
 
     for (int i = 0; i < 4; i++)
     {
-        if (i > 0)
-        {
-            Console.Write($"Enter your guess ({i + 1})> ");
-        }
+        Console.Write($"Enter your guess ({4 - i} guesses remaining)> ");
         int guess = Int32.Parse(Console.ReadLine().Trim());
 
         if (guess == secretNumber)
@@ -27,5 +23,5 @@ void GuessingGame()
             Console.WriteLine($"Sorry! {guess} was not the secret number.");
         }
     }
-    Console.WriteLine("Better luck next time!");
+    Console.WriteLine($"The secret number was {secretNumber}. Better luck next time!");
 }
