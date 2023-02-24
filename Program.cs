@@ -4,13 +4,27 @@ Main();
 
 void Main()
 {
-    DisplayPrompt();
+    int secret = SecretNumber(42);
+    GuessingGame(secret);
 }
 
-void DisplayPrompt()
+void GuessingGame(int secretNumber)
 {
     Console.WriteLine("Try to guess the secret number!");
     Console.Write($"Enter your guess: ");
-    string guess = Console.ReadLine().Trim();
-    Console.Write($"You guessed {guess}.");
+
+    int guess = Int32.Parse(Console.ReadLine().Trim());
+    if (guess == secretNumber)
+    {
+        Console.WriteLine($"You guessed correctly! The secret number was {secretNumber}.");
+    }
+    else
+    {
+        Console.WriteLine($"Sorry! {guess} was not the secret number.");
+    }
+}
+
+int SecretNumber(int num)
+{
+    return num;
 }
