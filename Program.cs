@@ -4,13 +4,37 @@ GuessingGame();
 
 void GuessingGame()
 {
-    int secretNumber = new Random().Next(1, 101);
-
+    Console.WriteLine(" ----------------- ");
+    Console.WriteLine(" | Guessing Game | ");
+    Console.WriteLine(" ----------------- ");
     Console.WriteLine("Try to guess the secret number!");
 
-    for (int i = 0; i < 4; i++)
+    Console.WriteLine(
+        $@"Please select a difficulty:
+    1) Easy
+    2) Medium
+    3) Hard"
+    );
+    int difficultyLevel = Int32.Parse(Console.ReadLine().Trim());
+
+    switch (difficultyLevel)
     {
-        Console.Write($"Enter your guess ({4 - i} remaining)> ");
+        case 1:
+            difficultyLevel = 8;
+            break;
+        case 2:
+            difficultyLevel = 6;
+            break;
+        case 3:
+            difficultyLevel = 4;
+            break;
+    }
+
+    int secretNumber = new Random().Next(1, 101);
+
+    for (int i = 0; i < difficultyLevel; i++)
+    {
+        Console.Write($"Enter your guess ({difficultyLevel - i} remaining)> ");
         int guess = Int32.Parse(Console.ReadLine().Trim());
 
         if (guess == secretNumber)
