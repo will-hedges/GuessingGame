@@ -10,17 +10,24 @@ void GuessingGame()
 
     for (int i = 0; i < 4; i++)
     {
-        Console.Write($"Enter your guess ({4 - i} guesses remaining)> ");
+        Console.Write($"Enter your guess ({4 - i} remaining)> ");
         int guess = Int32.Parse(Console.ReadLine().Trim());
 
         if (guess == secretNumber)
         {
-            Console.WriteLine($"You guessed correctly! The secret number was {secretNumber}.");
+            Console.WriteLine($"You guessed it!");
             return;
         }
         else
         {
-            Console.WriteLine($"Sorry! {guess} was not the secret number.");
+            if (guess > secretNumber)
+            {
+                Console.WriteLine($"{guess} is too high.");
+            }
+            else
+            {
+                Console.WriteLine($"{guess} is too low.");
+            }
         }
     }
     Console.WriteLine($"The secret number was {secretNumber}. Better luck next time!");
