@@ -21,10 +21,12 @@ int GetDifficulty()
 {
     Console.WriteLine(
         $@"Please select a difficulty:
-    1) Easy
-    2) Medium
-    3) Hard"
+    1) Easy     (8 guesses)
+    2) Medium   (6 guesses)
+    3) Hard     (4 guesses)
+    4) Cheater! (no limit)"
     );
+
     int difficultyLevel = Int32.Parse(Console.ReadLine().Trim());
 
     switch (difficultyLevel)
@@ -38,35 +40,54 @@ int GetDifficulty()
         case 3:
             difficultyLevel = 4;
             break;
+        case 4:
+            difficultyLevel = -1;
+            break;
     }
     return difficultyLevel;
+}
+
+void HandleGuess(string prompt, int secretNumber)
+{
+    Console.Write(prompt);
+    int guess = Int32.Parse(Console.ReadLine().Trim());
+
+    if (guess == secretNumber)
+    {
+        Console.WriteLine($"You guessed it!");
+        Environment.Exit(0);
+    }
+    else
+    {
+        if (guess > secretNumber)
+        {
+            Console.WriteLine($"{guess} is too high.");
+        }
+        else
+        {
+            Console.WriteLine($"{guess} is too low.");
+        }
+    }
 }
 
 void GuessingGame(int guesses)
 {
     int secretNumber = new Random().Next(1, 101);
 
-    for (int i = 0; i < guesses; i++)
+    // let the user guess an infinite number of times
+    if (guesses == -1)
     {
-        Console.Write($"Enter your guess ({guesses - i} remaining)> ");
-        int guess = Int32.Parse(Console.ReadLine().Trim());
-
-        if (guess == secretNumber)
+        while (true)
         {
-            Console.WriteLine($"You guessed it!");
-            return;
-        }
-        else
-        {
-            if (guess > secretNumber)
-            {
-                Console.WriteLine($"{guess} is too high.");
-            }
-            else
-            {
-                Console.WriteLine($"{guess} is too low.");
-            }
+            HandleGuess("Enter your guess> ", secretNumber);
         }
     }
-    Console.WriteLine($"The secret number was {secretNumber}. Better luck next time!");
+    else
+    {
+        for (int i = 0; i < guesses; i++)
+        {
+            HandleGuess($"Enter your guess ({guesses - i} remaining)> ", secretNumber);
+        }
+        Console.WriteLine($"The secret number was {secretNumber}. Better luck next time!");
+    }
 }
